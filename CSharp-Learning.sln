@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumingRESTAPI.Console", "Consuming-REST-API\ConsumingRESTAPI.Console.csproj", "{5EBC658C-3AFC-4E6F-BB1E-A1943414EEAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EBC658C-3AFC-4E6F-BB1E-A1943414EEAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EBC658C-3AFC-4E6F-BB1E-A1943414EEAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EBC658C-3AFC-4E6F-BB1E-A1943414EEAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EBC658C-3AFC-4E6F-BB1E-A1943414EEAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AE7F0FE-F4B6-474D-914B-AE463002189F}
+	EndGlobalSection
+EndGlobal
