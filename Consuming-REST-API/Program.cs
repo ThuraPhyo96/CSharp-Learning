@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Consuming_REST_API.Handlers;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using System.Collections.Specialized;
 using System.Reflection;
@@ -8,54 +9,66 @@ class Program
 {
     static async Task Main()
     {
-        // 1. Set up Dependency Injection
-        var serviceProvider = new ServiceCollection()
-            .AddHttpClient() // Register IHttpClientFactory
-            .AddSingleton<NewsApiService>() // Register news api service
-            .BuildServiceProvider();
+        // Set up the DI container
+        var services = new ServiceCollection();
 
-        // 2. Resolve the service and use it
+        // Add HttpClientFactory with ApiKeyHandler
+        services.AddHttpClient("NewsApi")
+            .AddHttpMessageHandler(() => new RetryHandler())
+            .AddHttpMessageHandler(() => new LoggingHandler())
+            .AddHttpMessageHandler(() => new ApiKeyHandler(apiKey: "d87a2248207c4271a8bdd70cd91fb2e4", userAgent: "NewsAggregatorAPI/1.0"))
+            .AddHttpMessageHandler(() => new ValidateHeaderHandler());
+
+        // Add NewsApiService
+        services.AddSingleton<NewsApiService>();
+
+        // Build the service provider
+        var serviceProvider = services.BuildServiceProvider();
+
+        // Resolve the service and use it
         var newsApiService = serviceProvider.GetRequiredService<NewsApiService>();
+
+        // Resolve IHttpClientFactory and use it
+        var httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
+
+        var client = httpClientFactory.CreateClient("NewsApi");
+
         FilterEverythingNews filterEverything = new()
         {
+            HttpClient = client,
             Q = "bitcoin"
         };
 
         FilterTopheadlinesNews filterHeadlines = new()
         {
+            HttpClient = client,
             Country = "us"
         };
 
         FilterSourcesNews filterSources = new()
         {
+            HttpClient = client,
             Category = "science"
         };
 
-        await newsApiService.GetNewsAsync(filterEverything);
-        await newsApiService.GetSourcesAsync(filterSources);
+        await NewsApiService.GetNewsAsync(filterEverything);
+        await NewsApiService.GetSourcesAsync(filterSources);
     }
 
-    public class NewsApiService(IHttpClientFactory httpClientFactory)
+    public class NewsApiService()
     {
-        private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
         private const string BaseUrl = "https://newsapi.org";
-        private const string ApiKey = "d87a2248207c4271a8bdd70cd91fb2e4";
 
-        public async Task GetNewsAsync(FilterEverythingNews filter)
+        public static async Task GetNewsAsync(FilterEverythingNews filter)
         {
             try
             {
-                var httpClient = _httpClientFactory.CreateClient();
                 NameValueCollection queryParameters = ConvertToQueryParameters(filter);
 
-                // Add the API key to the HTTP headers
-                httpClient.DefaultRequestHeaders.Add("X-Api-Key", ApiKey);
-                // Set the User-Agent header
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "NewsAggregatorAPI/1.0");
                 // Construct the full URL
                 string url = $"{BaseUrl}{filter.Url}?{queryParameters}";
 
-                HttpResponseMessage response = await httpClient.GetAsync(url);
+                HttpResponseMessage response = await filter.HttpClient!.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -92,21 +105,16 @@ class Program
             }
         }
 
-        public async Task GetSourcesAsync(FilterSourcesNews filter)
+        public static async Task GetSourcesAsync(FilterSourcesNews filter)
         {
             try
             {
-                var httpClient = _httpClientFactory.CreateClient();
                 NameValueCollection queryParameters = ConvertToQueryParameters(filter);
 
-                // Add the API key to the HTTP headers
-                httpClient.DefaultRequestHeaders.Add("X-Api-Key", ApiKey);
-                // Set the User-Agent header
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "NewsAggregatorAPI/1.0");
                 // Construct the full URL
                 string url = $"{BaseUrl}{filter.Url}?{queryParameters}";
 
-                HttpResponseMessage response = await httpClient.GetAsync(url);
+                HttpResponseMessage response = await filter.HttpClient!.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -171,6 +179,7 @@ class Program
 
     public class FilterEverythingNews
     {
+        public HttpClient? HttpClient { get; set; }
         public string Url { get; set; } = "/v2/everything";
         public string? Q { get; set; }
         public string? SearchIn { get; set; }
@@ -187,6 +196,7 @@ class Program
 
     public class FilterTopheadlinesNews
     {
+        public HttpClient? HttpClient { get; set; }
         public string Url { get; set; } = "/v2/top-headlines";
         public string? Country { get; set; }
         public string? Category { get; set; }
@@ -198,6 +208,7 @@ class Program
 
     public class FilterSourcesNews
     {
+        public HttpClient? HttpClient { get; set; }
         public string Url { get; set; } = "/v2/top-headlines/sources";
         public string? Country { get; set; }
         public string? Category { get; set; }
