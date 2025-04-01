@@ -20,10 +20,38 @@ namespace MongoDB.Console.Helpers
             await _collection.InsertOneAsync(document);
         }
 
+        public async Task InsertManyAsync(BsonDocument[] documents)
+        {
+            await _collection.InsertManyAsync(documents);
+        }
+
         // Read all document
         public async Task<List<BsonDocument>> GetAllAsync()
         {
             return await _collection.Find(new BsonDocument()).ToListAsync();
+        }
+
+        public async Task<List<BsonDocument>> GetAllAsyncBy(FilterDto input)
+        {
+            var builder = Builders<BsonDocument>.Filter;
+            var filters = new List<FilterDefinition<BsonDocument>>();
+
+            if (!string.IsNullOrEmpty(input.Title))
+                filters.Add(builder.Eq("title", input.Title));
+
+            if (!string.IsNullOrEmpty(input.Author))
+                filters.Add(builder.Eq("author", input.Author.Trim()));
+
+            if (!string.IsNullOrEmpty(input.Published_Date))
+            {
+                if (DateTime.TryParse(input.Published_Date, out var publishedDate))
+                {
+                    filters.Add(builder.Eq("published_date", publishedDate));
+                }
+            }
+
+            var filter = filters.Count == 0 ? builder.Empty : builder.And(filters);
+            return await _collection.Find(filter).ToListAsync();
         }
 
         // Update document
@@ -41,6 +69,17 @@ namespace MongoDB.Console.Helpers
             return result.ModifiedCount;
         }
 
+        public async Task<long> UpdateManyAsync(string keyword, BsonDocument document)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("author", keyword);
+            var update = Builders<BsonDocument>.Update
+                                               .Set("author", document["author"])
+                                               .CurrentDate("published_date");
+
+            var result = await _collection.UpdateManyAsync(filter, update);
+            return result.ModifiedCount;
+        }
+
         public async Task<long> DeleteAsync(string id)
         {
             // Define the perdicate
@@ -51,5 +90,15 @@ namespace MongoDB.Console.Helpers
 
             return result.DeletedCount;
         }
+
+        public async Task<long> DeleteManyAsync(string keyword)
+        {
+            // Define the perdicate
+            var filter = Builders<BsonDocument>.Filter.Eq("author", keyword);
+            var result = await _collection.DeleteManyAsync(filter);
+            return result.DeletedCount;
+        }
+
+        public record FilterDto(string Title, string Author, string Content, string Published_Date);
     }
 }
