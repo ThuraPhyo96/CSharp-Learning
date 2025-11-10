@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumingRESTAPI.Console", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDB.Console", "MongoDB.Console\MongoDB.Console.csproj", "{0829C76F-7B93-452D-AD13-E5AE9DCB1639}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFeatures", "CSharpFeatures\CSharpFeatures.csproj", "{9FE39B97-86BD-41C6-9F0D-513E1F0B4F9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0829C76F-7B93-452D-AD13-E5AE9DCB1639}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0829C76F-7B93-452D-AD13-E5AE9DCB1639}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0829C76F-7B93-452D-AD13-E5AE9DCB1639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FE39B97-86BD-41C6-9F0D-513E1F0B4F9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FE39B97-86BD-41C6-9F0D-513E1F0B4F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FE39B97-86BD-41C6-9F0D-513E1F0B4F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FE39B97-86BD-41C6-9F0D-513E1F0B4F9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
