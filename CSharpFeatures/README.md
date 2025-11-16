@@ -13,3 +13,9 @@
                     - Hashtable
          - Specialized collections:
                     - StringCollection: can only store strings
+
+- Type constraints:
+1. Reference Type Constraint
+   - Constraint Type => where T : class
+   - Restriction => The type argument must be a reference type (a class, interface, or delegate)
+   - Purpose => Guarantees that the type is an object that can be passed by reference and, importantly, can be safely checked for null
