@@ -7,6 +7,7 @@ class Program
         //BeforeGenerics();
         //GenericMethodExample();
         ReferenceTypeConstraintExample();
+        ValueTypeConstraintExample();
     }
 
     private static void BeforeGenerics()
@@ -56,5 +57,38 @@ class Program
 
         // Invalid: int is a value type
         // ReferenceTypeConstraintDemo<int> intDemo = new ReferenceTypeConstraintDemo<int>(); // Compile-time error: 'int' must be a reference type
+    }
+
+    private static void ValueTypeConstraintExample()
+    {
+        // Valid: int is a primitive struct
+        ValueTypeConstraintDemo<int> primitiveStructConstraintDemo = new ValueTypeConstraintDemo<int>(5);
+        if (primitiveStructConstraintDemo.HasValue())
+        {
+            Console.WriteLine($"Primitive Struct: {primitiveStructConstraintDemo.Value()}");
+        }
+
+        // Valid : Guid is a system struct
+        ValueTypeConstraintDemo<Guid> systemStructConstraintDemo = new ValueTypeConstraintDemo<Guid>(Guid.NewGuid());
+        if (systemStructConstraintDemo.HasValue())
+        {
+            Console.WriteLine($"System Struct: {systemStructConstraintDemo.Value()}");
+        }
+
+        // Valid: Enum is a special kind of struct
+        ValueTypeConstraintDemo<FileMode> enumConstraintDemo = new ValueTypeConstraintDemo<FileMode>(FileMode.Append);
+        if (enumConstraintDemo.HasValue())
+        {
+            Console.WriteLine($"Enum: {enumConstraintDemo.Value()}");
+        }
+
+        // Invalid: string is a reference type
+        // ValueTypeConstraintDemo<string> referenceTypeContraintDemo = new ValueTypeConstraintDemo<string>("Test");
+
+        // Invalid: int[] (Array) is a reference type
+        //ValueTypeConstraintDemo<int[]> referenceTypeContraintDemo = new ValueTypeConstraintDemo<int[]>(new int[] { 1, 2, 3 });
+
+        // Invalid: Nullable<int> is nuallable value type
+        //ValueTypeConstraintDemo<Nullable<int>> referenceTypeContraintDemo = new ValueTypeConstraintDemo<Nullable<int>>(5);
     }
 }
