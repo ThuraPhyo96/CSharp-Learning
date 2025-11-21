@@ -6,8 +6,9 @@ class Program
     {
         //BeforeGenerics();
         //GenericMethodExample();
-        ReferenceTypeConstraintExample();
-        ValueTypeConstraintExample();
+        //ReferenceTypeConstraintExample();
+        //ValueTypeConstraintExample();
+        ConstructorConstraintExample();
     }
 
     private static void BeforeGenerics()
@@ -90,5 +91,20 @@ class Program
 
         // Invalid: Nullable<int> is nuallable value type
         //ValueTypeConstraintDemo<Nullable<int>> referenceTypeContraintDemo = new ValueTypeConstraintDemo<Nullable<int>>(5);
+    }
+
+    private static void ConstructorConstraintExample()
+    {
+        // This call is valid because MyCreatableClass has a public parameterless constructor.
+        SampleConstructorConstraintClass sampleConstructorConstraint = ConstructorConstraintDemo.CreateInstance<SampleConstructorConstraintClass>();
+        Console.WriteLine(sampleConstructorConstraint.Message);
+
+        // This call is valid because SampleConstructorConstraintClassOne has an implicit default constructor.
+        SampleConstructorConstraintClassOne sampleConstructorConstraintOne = ConstructorConstraintDemo.CreateInstance<SampleConstructorConstraintClassOne>();
+        Console.WriteLine(sampleConstructorConstraintOne.Message);
+
+        // This will also work since we are directly using the 'new' keyword.
+        SampleConstructorConstraintClass sampleConstructorConstraintClass = new SampleConstructorConstraintClass();
+        Console.WriteLine(sampleConstructorConstraintClass.Message);
     }
 }

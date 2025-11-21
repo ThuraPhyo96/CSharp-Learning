@@ -23,3 +23,7 @@
    - Constraint Type => where T : struct
    - Restriction => The type argument must be a value type (a struct or an enum)
    - Purpose => This constraint guarantees that the type argument T is a value type that does not inherently support the concept of null. Its primary function is to enable the C# runtime and language to support Nullable value types (Nullable<T>) by ensuring that the underlying type being wrapped cannot itself be nullable, preventing recursive nesting (like Nullable<Nullable<int>>). This design allows the Nullable<T> struct to effectively express the absence of information using an internal bool hasValue flag alongside the stored value T
+3. Constructor Constraint
+   - Constraint Type => where T : new()
+   - Restriction => The type argument must have a public parameterless constructor
+   - Purpose => This constraint allows the generic class or method to create instances of the type argument T using the new operator without any parameters. It ensures that T can be instantiated without requiring any specific arguments, which is particularly useful when you need to create new objects of the generic type within the generic class or method
