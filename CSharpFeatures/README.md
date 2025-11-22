@@ -27,3 +27,10 @@
    - Constraint Type => where T : new()
    - Restriction => The type argument must have a public parameterless constructor
    - Purpose => This constraint allows the generic class or method to create instances of the type argument T using the new operator without any parameters. It ensures that T can be instantiated without requiring any specific arguments, which is particularly useful when you need to create new objects of the generic type within the generic class or method
+4. Conversion Constraint
+   - Constraint Type => where T : SomeType
+   - Restriction => The type argument (T) must be convertible to the specified SomeType. This means T must derive from, implement, or be convertible to the specified type
+   - SomeType Options => SomeType can be a class (e.g., Control), an interface (e.g., IFormattable), or another type parameter (e.g., T1 : T2)
+   - Purpose => This constraint restricts which types can be provided as type arguments to a generic type or method
+   - Benefit => It allows the compiler to know about specific methods and members defined on SomeType, guaranteeing that the type argument supports certain functionality beyond those defined in System.Object. For example, using where T : IFormattable ensures that specialized formatting methods, such as ToString(string, IFormatProvider), can be called successfully within the generic code
+   - Context => This constraint is necessary because C# generic variance rules often prevent conversions between concrete generic types even if their type arguments are convertible (e.g., a List<decimal> is not convertible to List<IFormattable>). By making the method generic and using the conversion constraint, this type-safety requirement is met

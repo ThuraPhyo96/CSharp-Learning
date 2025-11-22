@@ -1,4 +1,6 @@
 ﻿using CSharpFeatures.Generics;
+using System.Globalization;
+using System.Text;
 
 class Program
 {
@@ -8,7 +10,8 @@ class Program
         //GenericMethodExample();
         //ReferenceTypeConstraintExample();
         //ValueTypeConstraintExample();
-        ConstructorConstraintExample();
+        //ConstructorConstraintExample();
+        ConversionConstraintExample();
     }
 
     private static void BeforeGenerics()
@@ -106,5 +109,30 @@ class Program
         // This will also work since we are directly using the 'new' keyword.
         SampleConstructorConstraintClass sampleConstructorConstraintClass = new SampleConstructorConstraintClass();
         Console.WriteLine(sampleConstructorConstraintClass.Message);
+    }
+
+    private static void ConversionConstraintExample()
+    {
+        // 1. Create a List of a type that implements IFormattable (e.g., decimal or int).
+        // Decimal implements IFormattable, satisfying the conversion constraint
+        List<decimal> prices = new List<decimal> { 1000.99m, 1290.99m, 999.99m };
+
+        // 2. Client calls the constrained generic method.
+        // The compiler infers T as 'decimal', and since decimal : IFormattable is true, 
+        // the method call is valid.
+        Console.WriteLine("--- Normal Output ---");
+        ConversionConstraintDemo.PrintItems(prices);
+        
+        // 1. U.S. Dollar (USD)
+        CultureInfo usCulture = CultureInfo.GetCultureInfo("en-US");
+        Console.WriteLine("--- USD Output ---");
+        ConversionConstraintDemo.PrintWithCurrency(prices, usCulture);
+        // Expected output example: $1,000.00, $50,000.75
+
+        // 2. Singapore Dollar (SGD)
+        CultureInfo sgCulture = CultureInfo.GetCultureInfo("en-SG");
+        Console.WriteLine("--- SGD Output ---");
+        ConversionConstraintDemo.PrintWithCurrency(prices, sgCulture);
+        // Expected output example: S$1,000.00, S$50,000.75
     }
 }
