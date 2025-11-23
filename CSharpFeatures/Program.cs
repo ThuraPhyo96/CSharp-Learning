@@ -1,4 +1,5 @@
 ﻿using CSharpFeatures.Generics;
+using CSharpFeatures.LINQs;
 using System.Globalization;
 using System.Text;
 
@@ -11,7 +12,8 @@ class Program
         //ReferenceTypeConstraintExample();
         //ValueTypeConstraintExample();
         //ConstructorConstraintExample();
-        ConversionConstraintExample();
+        //ConversionConstraintExample();
+        ExtensionSmampleDemo();
     }
 
     private static void BeforeGenerics()
@@ -122,7 +124,7 @@ class Program
         // the method call is valid.
         Console.WriteLine("--- Normal Output ---");
         ConversionConstraintDemo.PrintItems(prices);
-        
+
         // 1. U.S. Dollar (USD)
         CultureInfo usCulture = CultureInfo.GetCultureInfo("en-US");
         Console.WriteLine("--- USD Output ---");
@@ -134,5 +136,19 @@ class Program
         Console.WriteLine("--- SGD Output ---");
         ConversionConstraintDemo.PrintWithCurrency(prices, sgCulture);
         // Expected output example: S$1,000.00, S$50,000.75
+    }
+
+    private static void ExtensionSmampleDemo()
+    {
+        List<Product> products = new List<Product>()
+        {
+            new Product() { Name = "Laptop", Price = 1200.50m },
+            new Product() { Name = "Smartphone", Price = 800.75m },
+            new Product() { Name = "Tablet", Price = 450.00m }
+        };
+
+        // Calling the extension method as if it were an instance method
+        decimal totalPrice = products.TotalPrice();
+        Console.WriteLine($"Total Price: {totalPrice:C2}");
     }
 }
