@@ -13,7 +13,10 @@ class Program
         //ValueTypeConstraintExample();
         //ConstructorConstraintExample();
         //ConversionConstraintExample();
-        ExtensionSmampleDemo();
+        //ExtensionSmampleDemo();
+
+        LINQDemo linqDemo = new LINQDemo();
+        linqDemo.ShowLINQExamples();
     }
 
     private static void BeforeGenerics()
