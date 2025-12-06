@@ -1,6 +1,7 @@
 ﻿using CSharpFeatures.Generics;
 using CSharpFeatures.LINQs;
 using CSharpFeatures.Readonly;
+using CSharpFeatures.Sealed;
 using System.Globalization;
 using System.Text;
 
@@ -21,12 +22,20 @@ class Program
         //LINQDemo linqDemo = new LINQDemo();
         //linqDemo.ShowLINQExamples();
 
-        BasicReadonlyUsage.Run();
-        ReadonlyConstructorAssignment.Run();
-        ReadonlyVsConstComparison.Run();
-        ReadonlyReferenceMutation.Run();
-        ReadonlyStructValueObject.Run();
-        ReadonlyDependencyInjection.Run();  
+        // Readonly demos
+        //BasicReadonlyUsage.Run();
+        //ReadonlyConstructorAssignment.Run();
+        //ReadonlyVsConstComparison.Run();
+        //ReadonlyReferenceMutation.Run();
+        //ReadonlyStructValueObject.Run();
+        //ReadonlyDependencyInjection.Run();  
+
+        // Sealed demos
+        BasicSealedClassUsage.Run();
+        BasicSealedMethodUsage.Run();
+        CombinedSealedWithPolymorphism.Run();
+        SealedUtilityClass.Run();
+        SealedForProtection.Run();
     }
 
     private static void BeforeGenerics()
