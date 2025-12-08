@@ -1,9 +1,7 @@
-﻿using CSharpFeatures.Generics;
+﻿using CSharpFeatures.AccessModifiers;
+using CSharpFeatures.Generics;
 using CSharpFeatures.LINQs;
-using CSharpFeatures.Readonly;
-using CSharpFeatures.Sealed;
 using System.Globalization;
-using System.Text;
 
 class Program
 {
@@ -31,11 +29,17 @@ class Program
         //ReadonlyDependencyInjection.Run();  
 
         // Sealed demos
-        BasicSealedClassUsage.Run();
-        BasicSealedMethodUsage.Run();
-        CombinedSealedWithPolymorphism.Run();
-        SealedUtilityClass.Run();
-        SealedForProtection.Run();
+        //BasicSealedClassUsage.Run();
+        //BasicSealedMethodUsage.Run();
+        //CombinedSealedWithPolymorphism.Run();
+        //SealedUtilityClass.Run();
+        //SealedForProtection.Run();
+
+        // Access Modifiers demos
+        PublicClass.Run();
+        InternalClass.Run();
+        PrivateTest.Run();
+        DerivedProtected.Run();
     }
 
     private static void BeforeGenerics()
