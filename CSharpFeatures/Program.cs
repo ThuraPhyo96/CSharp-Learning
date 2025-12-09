@@ -40,6 +40,8 @@ class Program
         InternalClass.Run();
         PrivateTest.Run();
         DerivedProtected.Run();
+        TestProtectedInternalAccess.Run();
+        DerivedProtectedInternalClassSameAssembly.Run();
     }
 
     private static void BeforeGenerics()
