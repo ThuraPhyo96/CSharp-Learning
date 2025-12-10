@@ -36,12 +36,14 @@ class Program
         //SealedForProtection.Run();
 
         // Access Modifiers demos
-        PublicClass.Run();
-        InternalClass.Run();
-        PrivateTest.Run();
-        DerivedProtected.Run();
-        TestProtectedInternalAccess.Run();
-        DerivedProtectedInternalClassSameAssembly.Run();
+        //PublicClass.Run();
+        //InternalClass.Run();
+        //PrivateTest.Run();
+        //DerivedProtected.Run();
+        //TestProtectedInternalAccess.Run();
+        //DerivedProtectedInternalClassSameAssembly.Run();
+        DerivedPrivateProtectedModifier.Run();
+        HiddenWidget.Run();
     }
 
     private static void BeforeGenerics()
