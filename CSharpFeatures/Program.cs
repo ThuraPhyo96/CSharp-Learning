@@ -1,6 +1,7 @@
 ﻿using CSharpFeatures.Abstract;
 using CSharpFeatures.AccessModifiers;
 using CSharpFeatures.Generics;
+using CSharpFeatures.Interface;
 using CSharpFeatures.LINQs;
 using System.Globalization;
 
@@ -47,7 +48,12 @@ class Program
         //HiddenWidget.Run();
 
         // Abstract demos
-        AbstractWithMixedMembers.Run();
+        //AbstractWithMixedMembers.Run();
+
+        // Interface demos
+        //MultipleInterfaces.Run();
+        //InterfacePolymorphism.Run();
+        //InterfaceWithDI.Run();
     }
 
     private static void BeforeGenerics()
