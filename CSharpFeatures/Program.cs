@@ -1,4 +1,5 @@
-﻿using CSharpFeatures.AccessModifiers;
+﻿using CSharpFeatures.Abstract;
+using CSharpFeatures.AccessModifiers;
 using CSharpFeatures.Generics;
 using CSharpFeatures.LINQs;
 using System.Globalization;
@@ -42,8 +43,11 @@ class Program
         //DerivedProtected.Run();
         //TestProtectedInternalAccess.Run();
         //DerivedProtectedInternalClassSameAssembly.Run();
-        DerivedPrivateProtectedModifier.Run();
-        HiddenWidget.Run();
+        //DerivedPrivateProtectedModifier.Run();
+        //HiddenWidget.Run();
+
+        // Abstract demos
+        AbstractWithMixedMembers.Run();
     }
 
     private static void BeforeGenerics()
