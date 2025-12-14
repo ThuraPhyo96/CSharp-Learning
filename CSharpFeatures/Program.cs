@@ -1,6 +1,7 @@
 ﻿using CSharpFeatures.Abstract;
 using CSharpFeatures.AccessModifiers;
 using CSharpFeatures.Constructors;
+using CSharpFeatures.ExtensionMethods;
 using CSharpFeatures.Generics;
 using CSharpFeatures.Interface;
 using CSharpFeatures.LINQs;
@@ -60,6 +61,12 @@ class Program
         //StaticConstructorRunsOnce.Run();
         //StaticConstructorRunsBeforeFirstUse.Run();
         //InstanceConstructorOverloading.Run();
+
+        // Extension Method demos
+        //ExtendBasic.Run();
+        //DateTimeExtensions.Run();
+        //EnumerableExtensions.Run();
+        //ExtendCustom.Run();
     }
 
     private static void BeforeGenerics()
