@@ -1,5 +1,6 @@
 ﻿using CSharpFeatures.Abstract;
 using CSharpFeatures.AccessModifiers;
+using CSharpFeatures.Constructors;
 using CSharpFeatures.Generics;
 using CSharpFeatures.Interface;
 using CSharpFeatures.LINQs;
@@ -54,6 +55,11 @@ class Program
         //MultipleInterfaces.Run();
         //InterfacePolymorphism.Run();
         //InterfaceWithDI.Run();
+
+        // Constructor demos
+        //StaticConstructorRunsOnce.Run();
+        //StaticConstructorRunsBeforeFirstUse.Run();
+        //InstanceConstructorOverloading.Run();
     }
 
     private static void BeforeGenerics()
